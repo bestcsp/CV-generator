@@ -2,7 +2,7 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+  /* text-align: center; */
 }
 
 .logo {
@@ -39,4 +39,190 @@
 
 .read-the-docs {
   color: #888;
+}
+/* styles.css */
+
+.container {
+  max-width: 800px;
+  /* margin: auto; */
+  /* padding: 20px; */
+}
+
+.navBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #3498db;
+  padding: 10px;
+  color: #ffffff;
+}
+
+.navBar h3 {
+  margin: 0;
+}
+
+.navBar button {
+  background-color: #2ecc71;
+  color: #ffffff;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.label{
+  padding-left: 15px;
+  font-weight: bold
+}
+
+.inputField {
+  /* Your existing styles for inputField class */
+
+  /* Additional styles for error handling */
+  position: relative;
+}
+
+.error {
+  border: 1px solid red; /* Add a red border for visual indication */
+}
+
+.errorText {
+  position: absolute;
+  top: 100%;
+  left: 8px;
+  color: red;
+  font-size: 12px;
+}
+
+.inputField,.qualifcationClass {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.label {
+  margin-right: 8px;
+}
+
+/* Add the following styles for responsiveness */
+@media (max-width: 768px) {
+  .inputField,.qualifcationClass {
+    flex-direction: column;
+  }
+}
+
+
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  .navBar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navBar button {
+    margin-top: 10px;
+  }
+}
+
+
+h3 {
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+input, select {
+  flex: 1;
+  padding: 8px;
+  margin-right: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.addButton, .removeButton {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 3px 3px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.removeButton {
+  background-color: #f44336;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
+
+  .input-container {
+    flex-direction: column;
+    margin-bottom: 8px;
+  }
+
+  input, select {
+    margin-right: 0;
+    margin-bottom: 8px;
+  }
+
+
+}
+
+/* QualificationDropdown.css */
+
+.block-input {
+  display: inline-block;
+  position: relative;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 6px;
+}
+
+.block-input label {
+  margin-right: 8px;
+}
+
+.block-input select {
+  cursor: pointer;
+}
+
+.removeButton {
+  position: absolute;
+  top: -2px;
+  right: -7px;
+  font-size: 10px;
+  padding: 2px 4px;
+  cursor: pointer;
+}
+
+.addButton{
+  background-color: #4caf50; /* Green background color */
+  color: white; /* White text color */
+  padding: 1px 4px; /* Padding */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor */
 }
