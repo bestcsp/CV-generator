@@ -5,9 +5,9 @@ const initialEducation = { "qualification": "", "year": "" };
 const skillsProp = { "skill": "", "year of experience": "" };
 const initialExperience = { "fromYear": "", "toYear": "", "companyName": "", "designation": "", "responsibilities": "" };
 const sectionOpt={
-  "skills":skillsProp,
-  "work experience":initialExperience,
-  "education":initialEducation
+  "Skills":skillsProp,
+  "Work Experience":initialExperience,
+  "Education":initialEducation
 }   
 
 const Label = ({ text }) => (
@@ -15,84 +15,124 @@ const Label = ({ text }) => (
 );
 
 // InputField component
-const InputField = ({ label, value,placeholder, onChange, readOnly }) => (
-  <div className='inputField' style={{ marginBottom: '10px' }}>
-    <Label text={label} />
-    <input
-      value={value}
-      onChange={onChange}
-      placeholder={placeholder}
-      readOnly={readOnly}
-      style={{ marginLeft: '8px' }}
-    />
-  </div>
-);
+const InputField = ({ label, value, placeholder, onChange, readOnly, error }) => (
+    <div className={`inputField ${error ? 'error' : ''}`} style={{ marginBottom: '10px' }}>
+      <Label text={label} />
+      <input
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        readOnly={readOnly}
+        style={{ marginLeft: '8px' }}
+      />
+      {error && <span className="errorText">Invalid {label}</span>}
+    </div>
+  );
 
 
 // Section component for rendering individual sections
-const Section = ({ section, data, handleInputChange, handleAddSection,handleRemoveSection, isAdmin }) => (
-  <div key={section}>
-    <h3>{section}</h3>
-    {Array.isArray(data) ? (
-      <div>
-        {data.map((item, index) => (
-          <div key={index}>
-            {Object.keys(item).map((key) => (
-              // <div className="objKeys">
-              key=='qualification'?(
-                <QualificationDropdown
-                  key={key}
-                  value={item[key]}
-                  onChange={(selectedValue) => handleInputChange(section, index, key, selectedValue)}
-                  options={qualification} // Replace with your qualification options
-                  readOnly={!isAdmin}
-                />
-              ) 
-              :
-              (<InputField
-                label={key}
-                key={key}
-                placeholder={key}
-                value={item[key]}
-                onChange={(e) => handleInputChange(section, index, key, e.target.value)}
-                readOnly={!isAdmin}
-              />)
+const Section = ({ section, data, handleInputChange, handleAddSection, handleRemoveSection, isAdmin }) => {
+    const [error, setError] = useState({}); // State to track errors
+  
+    const validateEmail = (value) => {
+      const isValidEmail = /\S+@\S+\.\S+/.test(value);
+      return isValidEmail;
+    };
+  
+    const validateMobile = (value) => {
+      const isValidMobile = /^\d{10}$/.test(value);
+      return isValidMobile;
+    };
+  
+    const handleValidation = (key, value) => {
+      let updatedError = { ...error };
+  
+      if (section === "Personal Details" && key === "email") {
+        updatedError = { ...updatedError, [key]: !validateEmail(value) };
+      }
+  
+      if (section === "Personal Details" && key === "mobile") {
+        updatedError = { ...updatedError, [key]: !validateMobile(value) };
+      }
+  
+      setError(updatedError);
+    };
+  
+    const resetValidation = () => {
+      setError({});
+    };
+  
+    const handleInput = (key, value, index = null) => {
+        resetValidation();
+        handleValidation(key, value);
+        handleInputChange(section, index, key, value);
+      };
+  
+    return (
+      <div key={section}>
+        <h3>{section}</h3>
+        {Array.isArray(data) ? (
+          <div>
+            {data.map((item, index) => (
+              <div className='block-input' key={index}>
+                {Object.keys(item).map((key) => (
+                  key === 'qualification' ? (
+                    <QualificationDropdown
+                      key={key}
+                      value={item[key]}
+                      onChange={(selectedValue) => handleInput(key, selectedValue, index)}
+                      options={qualification} // Replace with your qualification options
+                      readOnly={!isAdmin}
+                    />
+                  ) : (
+                    <InputField
+                      label={key}
+                      key={key}
+                      placeholder={key}
+                      value={item[key]}
+                      onChange={(e) => handleInput(key, e.target.value, index)}
+                      readOnly={!isAdmin}
+                      error={error[key]}
+                    />
+                  )
+                ))}
+                {["Work Experience", "Education", "Skills"].includes(section) && isAdmin ? (
+                  <button className="removeButton" onClick={() => handleRemoveSection(section, index)}>
+                    x
+                  </button>
+                ) : null}
+              </div>
             ))}
-            {["work experience","education","skills"].includes(section)&& isAdmin? (
-              <button className="removeButton" onClick={() => handleRemoveSection(section, index)}>
-                x
+            {["Education", "Work Experience", "Skills"].includes(section) && isAdmin && (
+              <button className="addButton" onClick={() => handleAddSection(section, sectionOpt[section])}>
+                + Add
               </button>
-            ) : null}
-            
+            )}
           </div>
-        ))}
-        { ["education","work experience","skills"].includes(section) && isAdmin && (    
-            <button  className="addButton" onClick={() => handleAddSection(section, sectionOpt[section])}>
-              +
-            </button>
+        ) : (
+          Object.keys(data).map((key) => (
+            <InputField
+              label={key}
+              key={key}
+              placeholder={key}
+              value={data[key]}
+              onChange={(e) => handleInput(key, e.target.value)}
+              readOnly={!isAdmin}
+              error={error[key]}
+            />
+          ))
         )}
       </div>
-    ) : (
-      Object.keys(data).map((key) => (
-        <InputField
-        label={key}
-          key={key}
-          placeholder={key}
-          value={data[key]}
-          onChange={(e) => handleInputChange(section, key, e.target.value)}
-          readOnly={!isAdmin}
-        />
-      ))
-    )}
-  </div>
-);
+    );
+  };
+  
 
 function Form({isAdmin}) {
   const [resume, setResume] = useState({
-    "personal details": { "email": "", "fullname": "", "mobile": "", "address": "" },
-    "education": [initialEducation],
-    "work experience": [initialExperience],
-    "skills": [skillsProp]
+    "Personal Details": { "email": "", "fullname": "", "mobile": "", "address": "" },
+    "Education": [initialEducation],
+    "Work Experience": [initialExperience],
+    "Skills": [skillsProp]
   });
   const handleRemoveSection = (section, index) => {
     setResume((prevResume) => ({
@@ -119,26 +159,10 @@ function Form({isAdmin}) {
     if (isAdmin) {
       setResume((prevResume) => {
         const updatedResume = { ...prevResume };  
-        // Add validation for email and mobile
-        if (section === "personal details" && key === "email") {
-          const isValidEmail = /\S+@\S+\.\S+/.test(value);
-          if (!isValidEmail) {
-            // Handle invalid email (you can display an error message)
-            return updatedResume;
-          }
-        }
-  
-        if (section === "personal details" && key === "mobile") {
-          const isValidMobile = /^\d{10}$/.test(value);
-          if (!isValidMobile) {
-            // Handle invalid mobile number (you can display an error message)
-            return updatedResume;
-          }
-        }
-  
         if (Array.isArray(updatedResume[section])) {
+            console.log({section,index,key,value})
           updatedResume[section] = updatedResume[section].map((item, i) =>
-            i === index ? { ...item, [key]: value } : item
+            i === index ? {...item, [key]: value } : item
           );
         } else {
           // It's a non-array section

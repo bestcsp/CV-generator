@@ -74,6 +74,44 @@
   font-weight: bold
 }
 
+.inputField {
+  /* Your existing styles for inputField class */
+
+  /* Additional styles for error handling */
+  position: relative;
+}
+
+.error {
+  border: 1px solid red; /* Add a red border for visual indication */
+}
+
+.errorText {
+  position: absolute;
+  top: 100%;
+  left: 8px;
+  color: red;
+  font-size: 12px;
+}
+
+.inputField,.qualifcationClass {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.label {
+  margin-right: 8px;
+}
+
+/* Add the following styles for responsiveness */
+@media (max-width: 768px) {
+  .inputField,.qualifcationClass {
+    flex-direction: column;
+  }
+}
+
+
 
 /* Responsive styling */
 @media (max-width: 768px) {
@@ -117,7 +155,7 @@ input, select {
   background-color: #4CAF50;
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 3px 3px;
   text-align: center;
   text-decoration: none;
   font-size: 14px;
@@ -148,8 +186,43 @@ input, select {
     margin-bottom: 8px;
   }
 
-  .addButton, .removeButton {
-    font-size: 12px;
-    padding: 8px 12px;
-  }
+
+}
+
+/* QualificationDropdown.css */
+
+.block-input {
+  display: inline-block;
+  position: relative;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 6px;
+}
+
+.block-input label {
+  margin-right: 8px;
+}
+
+.block-input select {
+  cursor: pointer;
+}
+
+.removeButton {
+  position: absolute;
+  top: -2px;
+  right: -7px;
+  font-size: 10px;
+  padding: 2px 4px;
+  cursor: pointer;
+}
+
+.addButton{
+  background-color: #4caf50; /* Green background color */
+  color: white; /* White text color */
+  padding: 1px 4px; /* Padding */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor */
 }
