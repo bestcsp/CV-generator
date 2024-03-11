@@ -18,4 +18,4 @@ This project is created with react and  vite. It's a simple example of cv genera
     -   CSS
 
 ## play ground url
--  https://cv-generator-woad.vercel.app/isadmin
+-  https://cv-generator-woad.vercel.app
