@@ -1,4 +1,4 @@
-# React + Vite
+# CV Geerator by React + Vite
 
 This project is created with react and  vite. It's a simple example of cv generator
 
