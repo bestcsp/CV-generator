@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Form from './components/form';
+import Template from './components/template';
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -17,10 +18,12 @@ function App() {
         </div>
         <Routes>
           {isAdmin ? (
-            <Route path="/isadmin" element={<Form isAdmin={true} />} />
+            <Route path="/isadmin" element={<Form isAdmin={isAdmin} />} />
           ) : (
-            <Route path="/" element={<Form isAdmin={false} />} />
+            <Route path="/" element={<Form isAdmin={isAdmin} />} />
           )}
+           <Route path="/template" element={<Template />} />
+
           <Route
             path="/*"
             element={<Navigate to={isAdmin ? '/isadmin' : '/'} />}

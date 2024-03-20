@@ -129,7 +129,7 @@ const Section = ({ section, data, handleInputChange, handleAddSection, handleRem
 
 function Form({isAdmin}) {
   const [resume, setResume] = useState({
-    "Personal Details": { "email": "", "fullname": "", "mobile": "", "address": "" },
+    "Personal Details": { "fullname": "","email": "",  "mobile": "", "address": "" },
     "Education": [initialEducation],
     "Work Experience": [initialExperience],
     "Skills": [skillsProp]

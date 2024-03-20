@@ -1,0 +1,18 @@
+.container-temp{
+    /* box-sizing: border-box; */
+    display: flex;
+}
+
+.leftBar{
+    flex: 20%;
+}
+
+.rightBar{
+    flex: 80%;
+}
+
+@media screen and (max-width: 900px) {
+    .leftBar, .rightBar{
+      width: 100%;
+    }
+  }
