@@ -20,17 +20,14 @@ function Template (){
 return(
     <>
     <div className="container">
-{Object.keys(resume).map((data)=>(
-  (data=="Personal Details" && <TempLateSection 
-  key={data}
-     data={resume[data]}
+  ( <TempLateSection 
+      key={"resume"}
+      data={resume}
+      section={Object.keys(resume)}
+
     />)
-
-  ))}
-
     </div>
     </>
-)
-}
+)}
 
 export default Template;
